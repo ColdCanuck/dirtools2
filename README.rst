@@ -9,7 +9,7 @@ Dirtools is a little Python package aimed to provide the following features:
 * Search recursively for all subidirs containing a given filename (all projects directory inside a dir).
 * Track changes in a directory over time (without duplicating it or without having direct access to it).
 
-* Dirtools2 is a fork of the original `Dirtools <https://github.com/tsileo/dirtools>`_
+* Dirtools2 is a fork of the original Dirtools: https://github.com/tsileo/dirtools
 
 .. image:: https://pypip.in/v/dirtools2/badge.png
         :target: https://crate.io/packages/dirtools2
