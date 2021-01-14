@@ -11,9 +11,9 @@ try:
     import fake_filesystem
     import fake_filesystem_shutil
 except ImportError:
-    print "You must install pyfakefs in order to run the test suite."
+    print("You must install pyfakefs in order to run the test suite.")
 
-import dirtools
+import dirtools2
 
 
 class TestDirtools(unittest.TestCase):

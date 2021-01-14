@@ -1,12 +1,31 @@
-*.pyc
-*.egg
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
 build/
+develop-eggs/
 dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
 *.egg-info/
-.sass-cache
-.DS_Store
-*tar.gz
-*.zip
-.pypirc
-*wip.py
-docs/_build
+.installed.cfg
+*.egg
+MANIFEST
+Scripts/
+pyvenv.cfg
+credentials/
+*.pickle
+.vscode

@@ -1,6 +1,6 @@
-==========
- Dirtools
-==========
+===========
+ Dirtools2
+===========
 
 Dirtools is a little Python package aimed to provide the following features:
 
@@ -9,12 +9,13 @@ Dirtools is a little Python package aimed to provide the following features:
 * Search recursively for all subidirs containing a given filename (all projects directory inside a dir).
 * Track changes in a directory over time (without duplicating it or without having direct access to it).
 
+* Dirtools2 is a fork of the original `Dirtools <https://github.com/tsileo/dirtools>`_
 
-.. image:: https://pypip.in/v/dirtools/badge.png
-        :target: https://crate.io/packages/dirtools
+.. image:: https://pypip.in/v/dirtools2/badge.png
+        :target: https://crate.io/packages/dirtools2
 
-.. image:: https://pypip.in/d/dirtools/badge.png
-        :target: https://crate.io/packages/dirtools
+.. image:: https://pypip.in/d/dirtools2/badge.png
+        :target: https://crate.io/packages/dirtools2
 
 
 Installation
@@ -22,7 +23,7 @@ Installation
 
 .. code-block::
 
-    $ pip install dirtools
+    $ pip install dirtools2
 
 
 Getting Started
@@ -31,13 +32,13 @@ Getting Started
 Excluding files
 ---------------
 
-Dirtools let you exlude files using .gitignore like syntax (unix filename pattern matching), by default ``dirtools`` will look for a ``.exclude`` file at root.
+Dirtools let you exlude files using .gitignore like syntax (unix filename pattern matching), by default ``dirtools2`` will look for a ``.exclude`` file at root.
 
 Here is how to check if a file should be excluded:
 
 .. code-block:: python
 
-    from dirtools import Dir
+    from dirtools2 import Dir
 
     d = Dir('/path/to/dir', exclude_file='.gitignore')
     d.is_excluded('/path/to/dir/script.pyc')
@@ -52,7 +53,7 @@ Here is how to compute the hash of a directory, excluded files ares skipped if a
 
 .. code-block:: python
 
-    from dirtools import Dir
+    from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
     hashdir = d.hash()
@@ -65,7 +66,7 @@ We'll call these directories **project**, ``find_projects`` will search recursiv
 
 .. code-block:: python
 
-    from dirtools import Dir
+    from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
     projects = d.find_projects('.project')
@@ -78,7 +79,7 @@ Dirtools provides a helper to compress the whole directory (except excluded file
 
 .. code-block:: python
 
-    from dirtools import Dir
+    from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
     
@@ -95,11 +96,11 @@ Or if you want to do it manually:
 .. code-block:: python
 
     import tarfile
-    from dirtools import Dir
+    from dirtools2 import Dir
 
     d = Dir('/path/to/mydir', exclude_file='.gitignore')
 
-    with tarfile.open(fileobj=out, mode="w:gz")) as tar:
+    with tarfile.open(fileobj=out, mode="w:gz") as tar:
         tar.add(filename, arcname=arcname, exclude=d.is_excluded)
 
 
@@ -110,7 +111,7 @@ Dirtools provides an helper ``DirState`` to help tracking changes in a directory
 
 .. code-block:: python
 
-    from dirtools import Dir, DirState
+    from dirtools2 import Dir, DirState
 
     d = Dir(path)
     dir_state = DirState(d)
@@ -137,7 +138,7 @@ If you need to perform operations on files or directories, you can use ``Dir.wal
 
 .. code-block:: python
 
-    from dirtools import Dir
+    from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
     
@@ -150,7 +151,7 @@ List all subdirectories of a directory
 
 .. code-block:: python
 
-    from dirtools import Dir
+    from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
 
@@ -164,7 +165,7 @@ List all files recursively
 
 .. code-block:: python
 
-    from dirtools import Dir
+    from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
 
@@ -176,6 +177,7 @@ List all files recursively
 License (MIT)
 =============
 
+Copyright (c) 2020 Barnabás Nagy
 Copyright (c) 2013 Thomas Sileo
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
