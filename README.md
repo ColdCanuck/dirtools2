@@ -2,12 +2,13 @@
 
 Dirtools is a little Python package aimed to provide the following features:
 
+* NEW: Compatible with Python3.
 * Exclude/ignore files in a directory, using .gitignore like syntax (unix filename pattern matching).
 * Generate a hash for a directory tree in order to check if a directory has been modified.
 * Search recursively for all subidirs containing a given filename (all projects directory inside a dir).
 * Track changes in a directory over time (without duplicating it or without having direct access to it).
 
-* Dirtools2 is a fork of the original Dirtools: https://github.com/tsileo/dirtools
+Dirtools2 is a fork of the original Dirtools: https://github.com/tsileo/dirtools
 
 [![](https://pypip.in/v/dirtools2/badge.png)](https://pypi.org/project/dirtools2/)
 [![](https://pypip.in/d/dirtools2/badge.png)](https://pypi.org/project/dirtools2/)

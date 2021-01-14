@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-""" test_dirtools.py - Test the dirtools module with pyfakefs. """
+""" test_dirtools2.py - Test the dirtools module with pyfakefs. """
 import shutil
 import unittest
 import os
@@ -18,7 +18,7 @@ import dirtools2
 
 class TestDirtools(unittest.TestCase):
     def setUp(self):
-        """ Initialize a fake filesystem and dirtools. """
+        """ Initialize a fake filesystem and dirtools2. """
 
         # First we create a fake filesystem in order to test dirtools
         fk = fake_filesystem.FakeFilesystem()
@@ -43,13 +43,13 @@ class TestDirtools(unittest.TestCase):
         fk.CreateFile('/test_dirtools/dir2/file_dir2', contents='inside dir2')
 
         # Sort of "monkey patch" to make dirtools use the fake filesystem
-        dirtools.os = fake_filesystem.FakeOsModule(fk)
-        dirtools.open = fake_filesystem.FakeFileOpen(fk)
+        dirtools2.os = fake_filesystem.FakeOsModule(fk)
+        dirtools2.open = fake_filesystem.FakeFileOpen(fk)
 
         # Dirtools initialization
-        self.dir = dirtools.Dir('/test_dirtools')
-        self.os = dirtools.os
-        self.open = dirtools.open
+        self.dir = dirtools2.Dir('/test_dirtools')
+        self.os = dirtools2.os
+        self.open = dirtools2.open
         self.shutil = fake_filesystem_shutil.FakeShutilModule(fk)
         self.fk = fk
 
@@ -87,15 +87,15 @@ class TestDirtools(unittest.TestCase):
 
     def testHashdir(self):
         """ Check that the hashdir changes when a file change in the tree. """
-        hashdir = self.dir.hash(dirtools.filehash)
+        hashdir = self.dir.hash(dirtools2.filehash)
         with self.open('/test_dirtools/file2', 'w') as f:
             f.write("new content")
-        new_hashdir = self.dir.hash(dirtools.filehash)
+        new_hashdir = self.dir.hash(dirtools2.filehash)
 
         self.assertNotEqual(hashdir, new_hashdir)
 
     def testDirState(self):
-        dir_state = dirtools.DirState(self.dir, index_cmp=dirtools.filehash)
+        dir_state = dirtools2.DirState(self.dir, index_cmp=dirtools2.filehash)
         self.shutil.copytree('/test_dirtools', 'test_dirtools2')
         with self.open('/test_dirtools2/dir1/subdir1/file_subdir1', 'w') as f:
             f.write("dir state")
@@ -103,10 +103,10 @@ class TestDirtools(unittest.TestCase):
             f.write("dir state")
         self.os.remove('/test_dirtools2/file1')
         self.shutil.rmtree('/test_dirtools2/dir2')
-        dir_state2 = dirtools.DirState(dirtools.Dir('/test_dirtools2'), index_cmp=dirtools.filehash)
+        dir_state2 = dirtools2.DirState(dirtools2.Dir('/test_dirtools2'), index_cmp=dirtools2.filehash)
         diff = dir_state2 - dir_state
         self.assertEqual(diff, {'deleted': ['file1', 'dir2/file_dir2'], 'updated': ['dir1/subdir1/file_subdir1'], 'deleted_dirs': ['dir2'], 'created': ['new_file']})
-        self.assertEqual(diff, dirtools.compute_diff(dir_state2.state, dir_state.state))
+        self.assertEqual(diff, dirtools2.compute_diff(dir_state2.state, dir_state.state))
 
     def testExclude(self):
         """ Check that Dir.is_excluded actually exclude files. """
@@ -122,8 +122,8 @@ class TestDirtools(unittest.TestCase):
 
     def testCompression(self):
         """ Check the compression, withouth pyfakefs because it doesn't support tarfile. """
-        dirtools.os = os
-        dirtools.open = open
+        dirtools2.os = os
+        dirtools2.open = open
 
         test_dir = '/tmp/test_dirtools'
 
@@ -140,7 +140,7 @@ class TestDirtools(unittest.TestCase):
         with open(os.path.join(test_dir, 'dir1/file1'), 'w') as f:
             f.write(os.urandom(2 ** 10))
 
-        cdir = dirtools.Dir(test_dir)
+        cdir = dirtools2.Dir(test_dir)
 
         archive_path = cdir.compress_to()
 
@@ -154,7 +154,7 @@ class TestDirtools(unittest.TestCase):
 
         tar.extractall(test_dir_extract)
 
-        extracted_dir = dirtools.Dir(test_dir_extract)
+        extracted_dir = dirtools2.Dir(test_dir_extract)
 
         self.assertEqual(sorted(extracted_dir.files()),
                          sorted(cdir.files()))
@@ -162,8 +162,8 @@ class TestDirtools(unittest.TestCase):
         self.assertEqual(sorted(extracted_dir.subdirs()),
                          sorted(cdir.subdirs()))
 
-        self.assertEqual(extracted_dir.hash(dirtools.filehash),
-                         cdir.hash(dirtools.filehash))
+        self.assertEqual(extracted_dir.hash(dirtools2.filehash),
+                         cdir.hash(dirtools2.filehash))
 
         shutil.rmtree(test_dir)
         shutil.rmtree(test_dir_extract)
