@@ -1,6 +1,4 @@
-===========
- Dirtools2
-===========
+# Dirtools2
 
 Dirtools is a little Python package aimed to provide the following features:
 
@@ -11,74 +9,59 @@ Dirtools is a little Python package aimed to provide the following features:
 
 * Dirtools2 is a fork of the original Dirtools: https://github.com/tsileo/dirtools
 
-.. image:: https://pypip.in/v/dirtools2/badge.png
-        :target: https://crate.io/packages/dirtools2
+[![](https://pypip.in/v/dirtools2/badge.png)](https://pypi.org/project/dirtools2/)
+[![](https://pypip.in/d/dirtools2/badge.png)](https://pypi.org/project/dirtools2/)
 
-.. image:: https://pypip.in/d/dirtools2/badge.png
-        :target: https://crate.io/packages/dirtools2
+## Installation
 
-
-Installation
-============
-
-.. code-block::
-
+```
     $ pip install dirtools2
+```
 
+## Getting Started
 
-Getting Started
-===============
-
-Excluding files
----------------
+### Excluding files
 
 Dirtools let you exlude files using .gitignore like syntax (unix filename pattern matching), by default ``dirtools2`` will look for a ``.exclude`` file at root.
 
 Here is how to check if a file should be excluded:
 
-.. code-block:: python
-
+```
     from dirtools2 import Dir
 
     d = Dir('/path/to/dir', exclude_file='.gitignore')
     d.is_excluded('/path/to/dir/script.pyc')
+```
 
-
-Hashdir
--------
+### Hashdir
 
 The hashdir represent the state of every files in a directory. It compute the hash of the hash of each file recursively.
 
 Here is how to compute the hash of a directory, excluded files ares skipped if any.
 
-.. code-block:: python
-
+```
     from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
     hashdir = d.hash()
+```
 
-
-Find directories containing a file
-----------------------------------
+### Find directories containing a file
 
 We'll call these directories **project**, ``find_projects`` will search recursively for subdirectories with a ``file_identifier`` file in it.
 
-.. code-block:: python
-
+```
     from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
     projects = d.find_projects('.project')
+```
 
-
-Compress the directory with gzip
-----------------------------------
+### Compress the directory with gzip
 
 Dirtools provides a helper to compress the whole directory (except excluded files/dirs) with gzip.
 
-.. code-block:: python
-
+```
     from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
@@ -89,12 +72,11 @@ Dirtools provides a helper to compress the whole directory (except excluded file
     # But you can specify a file
     archive_path = '/home/thomas/mydir.tgz'
     d.compress_to(archive_path)
-
+```
 
 Or if you want to do it manually:
 
-.. code-block:: python
-
+```
     import tarfile
     from dirtools2 import Dir
 
@@ -102,15 +84,13 @@ Or if you want to do it manually:
 
     with tarfile.open(fileobj=out, mode="w:gz") as tar:
         tar.add(filename, arcname=arcname, exclude=d.is_excluded)
+```
 
-
-Track changes in directories
-----------------------------
+### Track changes in directories
 
 Dirtools provides an helper ``DirState`` to help tracking changes in a directory over time, without duplicating it or without having direct access to it.
 
-.. code-block:: python
-
+```
     from dirtools2 import Dir, DirState
 
     d = Dir(path)
@@ -124,33 +104,28 @@ Dirtools provides an helper ``DirState`` to help tracking changes in a directory
     dir_state2 = DirState(d)
 
     changes = dir_state2 - dir_state
+```
 
+## Helpers
 
-Helpers
--------
+All methods/properties exclude files and directories based on patterns in `exclude_file` and the ``excludes`` list.
 
-All methods/properties exclude files and directories based on patterns in ``exclude_file`` and the ``excludes`` list.
-
-Custom Walker
-~~~~~~~~~~~~~
+### Custom Walker
 
 If you need to perform operations on files or directories, you can use ``Dir.walk``, it works exactly like ``os.walk``, except it will skip excluded files/directories on the fly.
 
-.. code-block:: python
-
+```
     from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
     
     for root, dirs, files in self.walk():
         # do something
+```
 
+### List all subdirectories of a directory
 
-List all subdirectories of a directory
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
+```
     from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
@@ -158,13 +133,11 @@ List all subdirectories of a directory
     dirs = d.subdirs()
 
     myproject_dirs = d.subdirs('myproject_*')
+```
 
+### List all files recursively
 
-List all files recursively
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
+```
     from dirtools2 import Dir
 
     d = Dir('/path/to/dir')
@@ -172,10 +145,9 @@ List all files recursively
     files = d.files()
 
     py_files = d.files('*.py')
+```
 
-
-License (MIT)
-=============
+## License (MIT)
 
 Copyright (c) 2020 Barnabás Nagy
 Copyright (c) 2013 Thomas Sileo
