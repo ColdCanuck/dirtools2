@@ -145,7 +145,7 @@ class Dir(object):
         shadir = hashlib.sha256()
         for f in self.files():
             try:
-                shadir.update(str(index_func(os.path.join(self.path, f)).encode('utf-8')))
+                shadir.update(str(index_func(os.path.join(self.path, f))).encode('utf-8'))
             except (IOError, OSError):
                 pass
         return shadir.hexdigest()

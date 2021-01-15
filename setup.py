@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="dirtools2",
-    version="0.2.13",
+    version="0.2.16",
     author="otapi",
     description="Exclude/ignore files in a directory (using .gitignore like syntax), compute hash, search projects for an entire directory tree and gzip compression.",
     license="MIT",

@@ -11,7 +11,7 @@ Dirtools2 is a fork of the original Dirtools: https://github.com/tsileo/dirtools
 
 ## What's new?
 * Compatible with Python3.
-* Hash of a directory tree now checks the content of the files as well, not only the filenames
+* Fixed: `TypeError: Unicode-objects must be encoded before hashing`
 
 [![](https://pypip.in/v/dirtools2/badge.png)](https://pypi.org/project/dirtools2/)
 [![](https://pypip.in/d/dirtools2/badge.png)](https://pypi.org/project/dirtools2/)
@@ -31,7 +31,7 @@ Dirtools let you exlude files using .gitignore like syntax (unix filename patter
 Here is how to check if a file should be excluded:
 
 ```
-    from dirtools2 import Dir
+    from dirtools2.dirtools2 import Dir
 
     d = Dir('/path/to/dir', exclude_file='.gitignore')
     d.is_excluded('/path/to/dir/script.pyc')
@@ -44,7 +44,7 @@ The hashdir represent the state of every files in a directory. It compute the ha
 Here is how to compute the hash of a directory, excluded files ares skipped if any.
 
 ```
-    from dirtools2 import Dir
+    from dirtools2.dirtools2 import Dir
 
     d = Dir('/path/to/dir')
     hashdir = d.hash()
@@ -55,7 +55,7 @@ Here is how to compute the hash of a directory, excluded files ares skipped if a
 We'll call these directories **project**, ``find_projects`` will search recursively for subdirectories with a ``file_identifier`` file in it.
 
 ```
-    from dirtools2 import Dir
+    from dirtools2.dirtools2 import Dir
 
     d = Dir('/path/to/dir')
     projects = d.find_projects('.project')
@@ -66,7 +66,7 @@ We'll call these directories **project**, ``find_projects`` will search recursiv
 Dirtools provides a helper to compress the whole directory (except excluded files/dirs) with gzip.
 
 ```
-    from dirtools2 import Dir
+    from dirtools2.dirtools2 import Dir
 
     d = Dir('/path/to/dir')
     
@@ -82,7 +82,7 @@ Or if you want to do it manually:
 
 ```
     import tarfile
-    from dirtools2 import Dir
+    from dirtools2.dirtools2 import Dir
 
     d = Dir('/path/to/mydir', exclude_file='.gitignore')
 
@@ -95,7 +95,7 @@ Or if you want to do it manually:
 Dirtools provides an helper ``DirState`` to help tracking changes in a directory over time, without duplicating it or without having direct access to it.
 
 ```
-    from dirtools2 import Dir, DirState
+    from dirtools2.dirtools2 import Dir, DirState
 
     d = Dir(path)
     dir_state = DirState(d)
@@ -119,7 +119,7 @@ All methods/properties exclude files and directories based on patterns in `exclu
 If you need to perform operations on files or directories, you can use ``Dir.walk``, it works exactly like ``os.walk``, except it will skip excluded files/directories on the fly.
 
 ```
-    from dirtools2 import Dir
+    from dirtools2.dirtools2 import Dir
 
     d = Dir('/path/to/dir')
     
@@ -130,7 +130,7 @@ If you need to perform operations on files or directories, you can use ``Dir.wal
 ### List all subdirectories of a directory
 
 ```
-    from dirtools2 import Dir
+    from dirtools2.dirtools2 import Dir
 
     d = Dir('/path/to/dir')
 
@@ -142,7 +142,7 @@ If you need to perform operations on files or directories, you can use ``Dir.wal
 ### List all files recursively
 
 ```
-    from dirtools2 import Dir
+    from dirtools2.dirtools2 import Dir
 
     d = Dir('/path/to/dir')
 
